@@ -9,7 +9,7 @@ import {
     Slider,
     View,
     Animated,
-    ActivityIndicatorIOS,
+    ActivityIndicator,
     ProgressBarAndroid,
     Platform,
 } from 'react-native';
@@ -20,7 +20,7 @@ var left = 0, top = 0;
 // width = width/2;
 console.log("width, height", width, height);
 import Icon from 'react-native-vector-icons/FontAwesome';
-const iconSize = 120;
+const iconSize = 60;
 
 const styles = StyleSheet.create({
     container: {
@@ -78,6 +78,11 @@ const styles = StyleSheet.create({
     },
     slider: {
     },
+    centering: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 8,
+    }
 });
 
 
@@ -90,6 +95,7 @@ export default class RCTIJKPlayerWithController extends Component {
         left: 0,
         width: 0,
         height: 0,
+        animating: true,
     };
 
     constructor(props) {
@@ -180,11 +186,11 @@ export default class RCTIJKPlayerWithController extends Component {
     renderProgressView() {
         var progress_view;
         if (Platform.OS == 'ios') {
-            progress_view = (<ActivityIndicatorIOS
-                animating={true}
-                style={[]}
+            progress_view = (<ActivityIndicator
+                animating={this.state.animating}
+                style={[styles.centering, { height: 80 }]}
                 size="large"
-                color="#000fff"
+                color="#ffffff"
             />)
         } else {
             progress_view = (<ProgressBarAndroid
@@ -245,6 +251,12 @@ export default class RCTIJKPlayerWithController extends Component {
     onPlayBackInfo(e) {
         if (this.sliderDragging) {
             return;
+        }
+        
+        if (e.playbackState == RCTIJKPlayer.PlayBackState.IJKMPMoviePlaybackStatePlaying) {
+            this.setState({ animating: false })
+        } else if (e.playbackState == RCTIJKPlayer.PlayBackState.IJKMPMoviePlaybackStateInterrupted) {
+            this.rctijkplayer.resume();
         }
         this.setState({ playBackInfo: e });
         this.props.onPlayBackInfo(e)
@@ -321,12 +333,13 @@ export default class RCTIJKPlayerWithController extends Component {
                 style={[playerStyle]}
             >
             </RCTIJKPlayer>
-            <TouchableOpacity
+            {this.renderProgressView()}
+            {/* <TouchableOpacity
                 onPress={this.showHideController.bind(this)}
                 style={[styles.controllerView]}
             >
                 {this.getController()}
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
         );
     }
