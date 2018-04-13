@@ -354,12 +354,16 @@
     [ijkOptions setPlayerOptionIntValue:29.97 forKey:@"r"];
     // -vol——设置音量大小，256为标准音量。（要设置成两倍音量时则输入512，依此类推
     [ijkOptions setPlayerOptionIntValue:512 forKey:@"vol"];
+    
     //跳帧开关
     [ijkOptions setPlayerOptionIntValue:1  forKey:@"framedrop"];
     [ijkOptions setPlayerOptionIntValue:0  forKey:@"start-on-prepared"];
     [ijkOptions setPlayerOptionIntValue:0  forKey:@"http-detect-range-support"];
     [ijkOptions setPlayerOptionIntValue:48  forKey:@"skip_loop_filter"];
-    [ijkOptions setPlayerOptionIntValue:0  forKey:@"packet-buffering"];
+    //如果是rtsp协议，可以优先用tcp(默认是用udp)
+    [ijkOptions setFormatOptionValue:@"tcp" forKey:@"rtsp_transport"];
+    //播放前的探测Size，默认是1M, 改小一点会出画面更快
+    [ijkOptions setFormatOptionIntValue:1024 * 16 forKey:@"probesize"];
     [ijkOptions setPlayerOptionIntValue:2000000 forKey:@"analyzeduration"];
     [ijkOptions setPlayerOptionIntValue:25  forKey:@"min-frames"];
     [ijkOptions setPlayerOptionIntValue:1  forKey:@"start-on-prepared"];
@@ -368,10 +372,18 @@
     [ijkOptions setFormatOptionValue:@"8192" forKey:@"probsize"];
     //自动转屏开关
     [ijkOptions setFormatOptionIntValue:0 forKey:@"auto_convert"];
+    // 超时时间，timeout参数只对http设置有效，若果你用rtmp设置timeout，ijkplayer内部会忽略timeout参数。rtmp的timeout参数含义和http的不一样。
+    [ijkOptions setFormatOptionIntValue:30 * 1000 * 1000 forKey:@"timeout"];
     //重连次数
     [ijkOptions setFormatOptionIntValue:1 forKey:@"reconnect"];
     //开启硬解码
-    [ijkOptions setPlayerOptionIntValue:1  forKey:@"videotoolbox"];
+    [ijkOptions setPlayerOptionIntValue:0  forKey:@"videotoolbox"];
+    // 最大缓存大小是3秒，可以依据自己的需求修改
+    [ijkOptions setPlayerOptionIntValue:3000 forKey:@"max_cached_duration"];
+    // 无限读
+    [ijkOptions setPlayerOptionIntValue:1 forKey:@"infbuf"];
+    // 关闭播放器缓冲
+    [ijkOptions setPlayerOptionIntValue:0 forKey:@"packet-buffering"];
     
     self.player = [[IJKFFMoviePlayerController alloc] initWithContentURL:self.url withOptions:ijkOptions];
     self.player.view.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
