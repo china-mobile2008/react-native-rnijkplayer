@@ -1,0 +1,53 @@
+{
+  "_from": "react-native-ijkplayer",
+  "_id": "react-native-ijkplayer@0.3.9",
+  "_inBundle": false,
+  "_integrity": "sha1-bFCxOXcZ4P3Yu3jFZ+JNCAyE6MQ=",
+  "_location": "/react-native-ijkplayer",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "react-native-ijkplayer",
+    "name": "react-native-ijkplayer",
+    "escapedName": "react-native-ijkplayer",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-native-ijkplayer/-/react-native-ijkplayer-0.3.9.tgz",
+  "_shasum": "6c50b1397719e0fdd8bb78c567e24d080c84e8c4",
+  "_spec": "react-native-ijkplayer",
+  "_where": "/Users/easyway/QingYuanManager",
+  "author": {
+    "name": "wangcong",
+    "email": "king6cong@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/king6cong/react-native-ijkplayer/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "IJKPlayer for React Native.",
+  "homepage": "https://github.com/king6cong/react-native-ijkplayer",
+  "keywords": [
+    "react-native",
+    "react",
+    "native",
+    "media",
+    "ijkplayer",
+    "player"
+  ],
+  "license": "MIT",
+  "name": "react-native-ijkplayer",
+  "nativePackage": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/king6cong/react-native-ijkplayer.git"
+  },
+  "version": "0.3.9"
+}
